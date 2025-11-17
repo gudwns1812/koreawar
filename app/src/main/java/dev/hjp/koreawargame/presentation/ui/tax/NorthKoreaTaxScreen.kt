@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import dev.hjp.koreawargame.R
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
@@ -136,6 +137,6 @@ fun BoxScope.DescriptionNorthKoreaTax() {
 @Preview
 @Composable
 fun NorthKoreaTaxPreview() {
-    NorthKoreaTaxScreen(viewModel = GameViewModel())
+    NorthKoreaTaxScreen(viewModel = GameViewModel(TaxRepository()))
 }
 

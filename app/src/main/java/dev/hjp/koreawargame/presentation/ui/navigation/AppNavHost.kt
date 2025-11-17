@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.game.FacilitiesScreen
 import dev.hjp.koreawargame.presentation.ui.game.FactoryScreen
 import dev.hjp.koreawargame.presentation.ui.game.MainScreen
@@ -15,7 +16,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
-    val gameViewModel = GameViewModel()
+    val gameViewModel = GameViewModel(TaxRepository())
 
     NavHost(
         navController = navController,

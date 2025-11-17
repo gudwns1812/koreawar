@@ -2,14 +2,13 @@ package dev.hjp.koreawargame.presentation.viewmodel.game
 
 import NorthKoreaTaxProvince
 import SouthKoreaTaxProvince
-import SouthKoreaTaxProvince.JEJU
 import TaxProvince
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.domain.ArmyState
 import dev.hjp.koreawargame.domain.EconomyState
 import dev.hjp.koreawargame.domain.GoldState
-import dev.hjp.koreawargame.domain.ProvinceState
 import dev.hjp.koreawargame.domain.ResearchState
 import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
@@ -19,7 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class GameViewModel : ViewModel() {
+class GameViewModel(
+    taxRepository: TaxRepository
+) : ViewModel() {
 
     private val _gold = MutableStateFlow(GoldState())
     val gold = _gold
@@ -27,29 +28,20 @@ class GameViewModel : ViewModel() {
     private val _economy = MutableStateFlow(EconomyState())
     val economy = _economy
 
+    val regionCount = taxRepository.regionCountState
+
     private val _research = MutableStateFlow(ResearchState())
     val research = _research
 
     private val _army = MutableStateFlow(ArmyState())
     val army = _army
 
+    private val southProvince = taxRepository.southProvince
+    private val northProvince = taxRepository.northProvince
+
     private val _gameOverEvent = MutableSharedFlow<Boolean>()
     val gameOverEvent = _gameOverEvent.asSharedFlow()
 
-    private val _southProvince = MutableStateFlow(
-        SouthKoreaTaxProvince.entries.map { province ->
-            if (province == JEJU) ProvinceState(province, true)
-            else ProvinceState(province)
-        }
-    )
-    val southProvince = _southProvince
-
-    private val _northProvince = MutableStateFlow(
-        NorthKoreaTaxProvince.entries.map { province ->
-            ProvinceState(province)
-        }
-    )
-    val northProvince = _northProvince
 
     private var lastClickTime = 0L
     private val throttle = 700L
@@ -88,7 +80,7 @@ class GameViewModel : ViewModel() {
     }
 
     fun buyFacilities(facilities: Facilities) {
-        if (_gold.value.gold < facilities.cost || _economy.value.regionCount < facilities.limitRegionCount) {
+        if (_gold.value.gold < facilities.cost || regionCount.value.regionCount < facilities.limitRegionCount) {
             return
         }
 

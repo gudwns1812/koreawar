@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
@@ -19,7 +20,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 
 @Composable
 fun MainScreen(
-    viewModel: GameViewModel = GameViewModel(),
+    viewModel: GameViewModel,
     onFactoryClick: () -> Unit = {},
     onFacilityClick: () -> Unit = {},
     onFightClick: () -> Unit = {},
@@ -106,5 +107,5 @@ fun MainScreen(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+    MainScreen(GameViewModel(TaxRepository()))
 }

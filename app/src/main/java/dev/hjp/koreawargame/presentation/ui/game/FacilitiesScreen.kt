@@ -2,6 +2,7 @@ package dev.hjp.koreawargame.presentation.ui.game
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.presentation.ui.common.ItemDescriptionText
 import dev.hjp.koreawargame.presentation.ui.common.ItemListScreen
@@ -35,5 +36,5 @@ fun FacilitiesScreen(
 @Preview
 @Composable
 fun FacilitiesScreenPreview() {
-    FacilitiesScreen(viewModel = GameViewModel())
+    FacilitiesScreen(viewModel = GameViewModel(TaxRepository()))
 }

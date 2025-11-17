@@ -20,11 +20,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import dev.hjp.koreawargame.R
-import dev.hjp.koreawargame.presentation.ui.tax.DescriptionTax
-import dev.hjp.koreawargame.presentation.ui.tax.DescriptionTaxRule
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
-import dev.hjp.koreawargame.presentation.ui.tax.TaxBox
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 
@@ -105,7 +103,7 @@ fun BoxScope.DescriptionSouthKoreaTax() {
 @Composable
 fun SouthKoreaTaxScreenPreview() {
     SouthKoreaTaxScreen(
-        viewModel = GameViewModel()
+        viewModel = GameViewModel(TaxRepository())
     )
 }
 

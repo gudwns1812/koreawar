@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
 import dev.hjp.koreawargame.presentation.ui.common.ItemListScreen
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
@@ -49,5 +50,5 @@ fun ResearchScreen(
 @Preview
 @Composable
 fun ResearchScreenPreview() {
-    ResearchScreen(viewModel = GameViewModel())
+    ResearchScreen(viewModel = GameViewModel(TaxRepository()))
 }

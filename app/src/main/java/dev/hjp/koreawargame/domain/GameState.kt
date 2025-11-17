@@ -11,7 +11,10 @@ data class EconomyState(
     val approvalRate: Double = 60.0,
     val population: Long = 10_000L,
     val economyPower: Long = 0L,
-    val regionCount: Int = 2,
+)
+
+data class RegionCountState(
+    val regionCount: Int = 2
 )
 
 data class ResearchState(

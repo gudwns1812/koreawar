@@ -23,6 +23,7 @@ fun GameStatusPanel(
     val economyState = viewModel.economy.collectAsState()
     val researchState = viewModel.research.collectAsState()
     val armyState = viewModel.army.collectAsState()
+    val regionCountState = viewModel.regionCount.collectAsState()
 
     Row(modifier = Modifier.fillMaxWidth()) {
         Column(
@@ -74,7 +75,7 @@ fun GameStatusPanel(
                 fontWeight = FontWeight.ExtraBold
             )
             Text(
-                text = "지역수: ${economyState.value.regionCount}%",
+                text = "지역수: ${regionCountState.value.regionCount}%",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.ExtraBold
             )
