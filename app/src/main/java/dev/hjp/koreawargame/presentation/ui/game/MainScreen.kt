@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
@@ -21,11 +23,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 @Composable
 fun MainScreen(
     viewModel: GameViewModel,
-    onFactoryClick: () -> Unit = {},
-    onFacilityClick: () -> Unit = {},
-    onBattleClick: () -> Unit = {},
-    onResearchClick: () -> Unit = {},
-    onTaxClick: () -> Unit = {}
+    navController: NavController = rememberNavController(),
 ) {
     GameLayout(
         content = {
@@ -47,7 +45,7 @@ fun MainScreen(
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .offset(boxWidth * 0.07f, boxHeight * 0.18f)
-                        .safeClickable { onFactoryClick() },
+                        .safeClickable { navController.navigate("factory") },
                     fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
@@ -58,7 +56,7 @@ fun MainScreen(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .offset(boxWidth * -0.07f, boxHeight * 0.18f)
-                        .safeClickable { onFacilityClick() },
+                        .safeClickable { navController.navigate("facilities") },
                     fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
@@ -68,7 +66,7 @@ fun MainScreen(
                     text = "전투 개시",
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .safeClickable { onBattleClick() },
+                        .safeClickable { navController.navigate("southBattle") },
                     fontSize = 40.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Red
@@ -79,7 +77,7 @@ fun MainScreen(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .offset(boxWidth * 0.07f, boxHeight * -0.18f)
-                        .safeClickable { onResearchClick() },
+                        .safeClickable { navController.navigate("research") },
                     fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
@@ -90,7 +88,7 @@ fun MainScreen(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .offset(boxWidth * -0.07f, boxHeight * -0.18f)
-                        .safeClickable { onTaxClick() },
+                        .safeClickable { navController.navigate("tax") },
                     fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
@@ -98,7 +96,7 @@ fun MainScreen(
             }
         },
         bottomContent = {
-            GameStatusPanel(viewModel = viewModel) // Uncomment and implement this if you have a GameStatusPanel
+            GameStatusPanel(viewModel = viewModel)
         }
     )
 }

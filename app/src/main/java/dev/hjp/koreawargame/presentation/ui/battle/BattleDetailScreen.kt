@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,11 +19,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
 import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
@@ -33,11 +38,10 @@ import dev.hjp.koreawargame.ui.theme.ForestGreen
 fun BattleDetailScreen(
     battleViewModel: BattleViewModel,
     gameViewModel: GameViewModel,
-    onBackClick: () -> Unit = {},
-    onBattleClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
-    val selectedCity = battleViewModel.selectedCity.value
-    val color = battleViewModel.selectedColor.value
+    val battleCity = battleViewModel.currentTarget.collectAsState().value.battleCity
+    val color = battleViewModel.selectedCountry.value?.color ?: Color.Yellow
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -54,32 +58,10 @@ fun BattleDetailScreen(
         ) {
             Spacer(modifier = Modifier.size(100.dp))
 
-            Box(
-                modifier = Modifier
-                    .border(1.dp, Color.Black)
-                    .size(300.dp, 200.dp)
-                    .background(color = color ?: Color.Yellow)
-            ) {
-                val militaryPower = selectedCity?.militaryPower ?: 200
-
-                Column(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = selectedCity?.regionName ?: "해남",
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.size(20.dp))
-                    Text(
-                        text = "적군 군사력 : $militaryPower",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
+            EnemyMilitaryBox(
+                color = color,
+                battleCity = battleCity
+            )
 
             Text(
                 text = "전투 개시",
@@ -87,40 +69,14 @@ fun BattleDetailScreen(
                 modifier = Modifier
                     .safeClickable {
                         gameViewModel.battle()
-                        onBattleClick()
+                        navController.navigate("battle")
                     },
                 color = Color.Red,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center
             )
 
-            Box(
-                modifier = Modifier
-                    .border(1.dp, Color.Black)
-                    .size(300.dp, 200.dp)
-                    .background(color = ForestGreen)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    val userMilitary = gameViewModel.army.value
-
-                    Text(
-                        text = "아군",
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.size(20.dp))
-                    Text(
-                        text = "아군 군사력 : ${userMilitary.militaryPower}",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
+            UserMilitaryBox(gameViewModel)
 
             Spacer(modifier = Modifier.size(50.dp))
 
@@ -139,7 +95,75 @@ fun BattleDetailScreen(
                 .align(Alignment.BottomStart),
             sizeDp = 50.dp,
             description = "뒤로가기",
-        ) { onBackClick() }
+        ) { navController.popBackStack() }
+    }
+}
+
+@Composable
+fun EnemyMilitaryBox(
+    color: Color?,
+    boxSize: DpSize = DpSize(300.dp, 200.dp),
+    battleCity: BattleCity
+) {
+    Box(
+        modifier = Modifier
+            .border(1.dp, Color.Black)
+            .size(boxSize)
+            .background(color = color ?: Color.Yellow)
+    ) {
+        val militaryPower = battleCity.militaryPower
+
+        Column(
+            modifier = Modifier.align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = battleCity.regionName,
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            Text(
+                text = "적군 군사력 : $militaryPower",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+@Composable
+fun UserMilitaryBox(
+    gameViewModel: GameViewModel,
+    boxSize: DpSize = DpSize(300.dp, 200.dp)
+) {
+    Box(
+        modifier = Modifier
+            .border(1.dp, Color.Black)
+            .size(boxSize)
+            .background(color = ForestGreen)
+    ) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val userMilitary = gameViewModel.army.collectAsState().value
+
+            Text(
+                text = "아군",
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            Text(
+                text = "아군 군사력 : ${userMilitary.militaryPower}",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
 

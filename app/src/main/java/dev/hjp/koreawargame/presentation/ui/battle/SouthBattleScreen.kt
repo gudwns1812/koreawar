@@ -15,6 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
@@ -30,9 +32,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 fun SouthBattleScreen(
     battleViewModel: BattleViewModel,
     gameViewModel: GameViewModel,
-    onBackClick: () -> Unit = {},
-    middleRegionClick: () -> Unit = {},
-    onBattleDetailClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
     GameLayout(
         content = {
@@ -43,7 +43,6 @@ fun SouthBattleScreen(
             ) {
                 val boxWidth = maxWidth
                 val boxHeight = maxHeight
-
 
                 Image(
                     modifier = Modifier
@@ -58,7 +57,7 @@ fun SouthBattleScreen(
                     boxWidth,
                     boxHeight,
                     battleViewModel
-                ) { onBattleDetailClick() }
+                ) { navController.navigate("battleDetail") }
 
                 Triangle(
                     modifier = Modifier
@@ -66,14 +65,14 @@ fun SouthBattleScreen(
                     sizeDp = 50.dp,
                     description = "중부 지역",
                     angle = 270f
-                ) { middleRegionClick() }
+                ) { navController.navigate("middleBattle") }
 
                 Triangle(
                     modifier = Modifier
                         .align(Alignment.BottomStart),
                     sizeDp = 50.dp,
                     description = "메인 화면",
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
         bottomContent = { GameStatusPanel(gameViewModel) }

@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
@@ -38,10 +40,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 fun MiddleBattleScreen(
     battleViewModel: BattleViewModel,
     gameViewModel: GameViewModel,
-    onBackClick: () -> Unit = {},
-    northRegionClick: () -> Unit = {},
-    northKoreaClick: () -> Unit = {},
-    onBattleDetailClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
     GameLayout(
         content = {
@@ -66,7 +65,7 @@ fun MiddleBattleScreen(
                     boxWidth,
                     boxHeight,
                     battleViewModel
-                ) { onBattleDetailClick() }
+                ) { navController.navigate("battleDetail") }
 
                 Box(
                     modifier = Modifier
@@ -74,7 +73,7 @@ fun MiddleBattleScreen(
                         .offset(boxWidth.times(0.2f), boxHeight.times(0.4f))
                         .border(2.dp, Color.Black)
                         .size(60.dp, 60.dp)
-                        .safeClickable { northKoreaClick() }
+                        .safeClickable { navController.navigate("northKoreaBattle") }
                 ) {
                     Text(
                         modifier = Modifier
@@ -92,7 +91,7 @@ fun MiddleBattleScreen(
                     sizeDp = 50.dp,
                     description = "북부 지역",
                     angle = 270f
-                ) { northRegionClick() }
+                ) { navController.navigate("northBattle") }
 
                 Triangle(
                     modifier = Modifier
@@ -100,7 +99,7 @@ fun MiddleBattleScreen(
                     sizeDp = 50.dp,
                     description = "남부 지역",
                     angle = 90f
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
         bottomContent = { GameStatusPanel(gameViewModel) }

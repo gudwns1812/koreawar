@@ -12,7 +12,9 @@ import dev.hjp.koreawargame.ui.theme.SkyBlue
 data class Country(
     val countryName: String,
     val cities: List<BattleCity>,
-    val color: Color = Color.Yellow
+    val color: Color = Color.Yellow,
+    val clearIncreasePopulation: Long = 3000,
+    val clearDecreaseApprovalRate: Double = 1.0
 )
 
 val jeollaCountry = Country(

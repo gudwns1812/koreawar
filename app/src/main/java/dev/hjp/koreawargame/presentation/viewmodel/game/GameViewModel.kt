@@ -141,5 +141,12 @@ class GameViewModel(
             approvalRate = _economy.value.approvalRate - 0.5,
             population = _economy.value.population - 100
         )
+        checkGameOver()
+    }
+
+    fun damagePlayer(enemyMilitaryPower: Long) {
+        _army.value = _army.value.copy(
+            militaryPower = _army.value.militaryPower - (enemyMilitaryPower / 10)
+        )
     }
 }

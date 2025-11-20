@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -120,7 +121,7 @@ fun ShowCities(
     cityPositions.forEach { pos ->
         val country = battleViewModel.findCountry(pos.countryName)
         val city = country.cities.find { it.regionName == pos.regionName } ?: return@forEach
-        val currentTarget = battleViewModel.currentTarget.battleCity
+        val currentTarget = battleViewModel.currentTarget.collectAsState().value.battleCity
 
         val isCurrent = city == currentTarget
 
@@ -148,7 +149,7 @@ fun ShowCities(
                 fixedTextColor = fixedTextColor,
                 onClick = {
                     if (isCurrent) {
-                        battleViewModel.selectCity(city, country.color)
+                        battleViewModel.selectCountry(country)
                         onBattleDetailClick()
                     }
                 }

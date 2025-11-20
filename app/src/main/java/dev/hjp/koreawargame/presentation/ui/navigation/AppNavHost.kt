@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.presentation.ui.battle.BattleDetailScreen
+import dev.hjp.koreawargame.presentation.ui.battle.BattleResultScreen
+import dev.hjp.koreawargame.presentation.ui.battle.BattleScreen
 import dev.hjp.koreawargame.presentation.ui.battle.MiddleBattleScreen
 import dev.hjp.koreawargame.presentation.ui.battle.NorthBattleScreen
 import dev.hjp.koreawargame.presentation.ui.battle.NorthKoreaBattleScreen
@@ -32,11 +34,7 @@ fun AppNavHost(
         composable("main") {
             MainScreen(
                 viewModel = gameViewModel,
-                onFactoryClick = { navController.navigate("factory") },
-                onFacilityClick = { navController.navigate("facilities") },
-                onResearchClick = { navController.navigate("research") },
-                onTaxClick = { navController.navigate("tax") },
-                onBattleClick = { navController.navigate("southBattle") }
+                navController = navController
             )
         }
 
@@ -64,8 +62,7 @@ fun AppNavHost(
         composable("tax") {
             SouthKoreaTaxScreen(
                 viewModel = gameViewModel,
-                onBackClick = { navController.popBackStack() },
-                onNextPage = { navController.navigate("northKoreaTax") }
+                navController = navController
             )
         }
 
@@ -80,9 +77,7 @@ fun AppNavHost(
             SouthBattleScreen(
                 battleViewModel,
                 gameViewModel,
-                onBackClick = { navController.popBackStack() },
-                middleRegionClick = { navController.navigate("middleBattle") },
-                onBattleDetailClick = { navController.navigate("battleDetail") }
+                navController = navController
             )
         }
 
@@ -90,10 +85,7 @@ fun AppNavHost(
             MiddleBattleScreen(
                 battleViewModel,
                 gameViewModel,
-                onBackClick = { navController.popBackStack() },
-                northRegionClick = { navController.navigate("northBattle") },
-                northKoreaClick = { navController.navigate("northKoreaBattle") },
-                onBattleDetailClick = { navController.navigate("battleDetail") }
+                navController = navController
             )
         }
 
@@ -119,7 +111,24 @@ fun AppNavHost(
             BattleDetailScreen(
                 battleViewModel,
                 gameViewModel,
-                onBackClick = { navController.popBackStack() }
+                navController = navController
+            )
+        }
+
+        composable("battle") {
+            BattleScreen(
+                gameViewModel = gameViewModel,
+                battleViewModel = battleViewModel,
+                navController = navController
+            )
+        }
+
+        composable("result/{result}") { backStackEntry ->
+            val result = backStackEntry.arguments?.getString("result") ?: "win"
+            BattleResultScreen(
+                result = result,
+                battleViewModel = battleViewModel,
+                navController = navController
             )
         }
     }
