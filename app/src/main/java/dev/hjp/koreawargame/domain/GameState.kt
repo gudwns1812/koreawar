@@ -32,6 +32,6 @@ data class ProvinceState(
 )
 
 data class BattleProvinceState(
-    val battleField: BattleCity,
+    val battleCity: BattleCity,
     val isClear: Boolean = false
 )

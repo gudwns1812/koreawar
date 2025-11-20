@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
+import dev.hjp.koreawargame.ui.theme.OverlayDark
 
 
 @Composable
@@ -55,7 +56,7 @@ fun TaxBox(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(if (hasRegion) Color.Green else Color.DarkGray)
+                .background(if (hasRegion) Color.Green else OverlayDark)
         )
 
         if (isOnCooldown) {

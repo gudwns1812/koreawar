@@ -23,7 +23,7 @@ fun MainScreen(
     viewModel: GameViewModel,
     onFactoryClick: () -> Unit = {},
     onFacilityClick: () -> Unit = {},
-    onFightClick: () -> Unit = {},
+    onBattleClick: () -> Unit = {},
     onResearchClick: () -> Unit = {},
     onTaxClick: () -> Unit = {}
 ) {
@@ -68,7 +68,7 @@ fun MainScreen(
                     text = "전투 개시",
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .safeClickable { onFightClick() },
+                        .safeClickable { onBattleClick() },
                     fontSize = 40.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Red

@@ -135,4 +135,11 @@ class GameViewModel(
                 northProvince.value.find { it.province == province }!!.hasRegion
         }
     }
+
+    fun battle() {
+        _economy.value = _economy.value.copy(
+            approvalRate = _economy.value.approvalRate - 0.5,
+            population = _economy.value.population - 100
+        )
+    }
 }
