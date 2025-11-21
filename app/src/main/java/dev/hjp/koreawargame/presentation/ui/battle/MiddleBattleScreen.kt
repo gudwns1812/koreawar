@@ -25,8 +25,9 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
-import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
+import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.domain.domaindata.war.ShowCities
 import dev.hjp.koreawargame.domain.domaindata.war.middleCityPositions
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
@@ -127,8 +128,8 @@ fun MiddleBattleBoxContent(
 @Composable
 fun MiddleBattleScreenPreview() {
     MiddleBattleScreen(
-        battleViewModel = BattleViewModel(BattleRepository(), TaxRepository()),
-        gameViewModel = GameViewModel(TaxRepository())
+        battleViewModel = BattleViewModel(FakeBattleRepository()),
+        gameViewModel = GameViewModel(FakeGameRepository())
     )
 
 }

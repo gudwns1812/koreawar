@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
-import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
+import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.domain.domaindata.war.ShowCities
 import dev.hjp.koreawargame.domain.domaindata.war.northKoreaCityPositions
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
@@ -97,11 +98,10 @@ fun NorthKoreaBattleContent(
 fun PreviewNorthKoreaBattleScreen() {
     NorthKoreaBattleScreen(
         BattleViewModel(
-            BattleRepository(),
-            TaxRepository()
+            FakeBattleRepository()
         ),
         GameViewModel(
-            TaxRepository()
+            FakeGameRepository()
         )
     )
 }

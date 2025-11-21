@@ -1,19 +1,20 @@
-package dev.hjp.koreawargame.data.repository
+package dev.hjp.koreawargame.presentation.viewmodel.game
 
+import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+class BattleViewModelTest {
 
-class BattleRepositoryTest {
-
-    private lateinit var repository: BattleRepository
+    private lateinit var repository: BattleViewModel
 
     @Before
     fun setUp() {
-        repository = BattleRepository()
+        repository = BattleViewModel(FakeBattleRepository(), TaxRepository())
     }
 
     @Test

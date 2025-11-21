@@ -15,6 +15,8 @@ import dev.hjp.koreawargame.presentation.ui.game.FacilitiesScreen
 import dev.hjp.koreawargame.presentation.ui.game.FactoryScreen
 import dev.hjp.koreawargame.presentation.ui.game.MainScreen
 import dev.hjp.koreawargame.presentation.ui.game.ResearchScreen
+import dev.hjp.koreawargame.presentation.ui.result.GameClearScreen
+import dev.hjp.koreawargame.presentation.ui.result.GameOverScreen
 import dev.hjp.koreawargame.presentation.ui.tax.NorthKoreaTaxScreen
 import dev.hjp.koreawargame.presentation.ui.tax.SouthKoreaTaxScreen
 import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
@@ -135,7 +137,21 @@ fun AppNavHost(
         }
 
         composable("gameOver") {
+            GameOverScreen(
+                navController = navController
+            ) {
+                battleViewModel.reset()
+                gameViewModel.reset()
+            }
+        }
 
+        composable("gameClear") {
+            GameClearScreen(
+                navController = navController
+            ) {
+                battleViewModel.reset()
+                gameViewModel.reset()
+            }
         }
     }
 }

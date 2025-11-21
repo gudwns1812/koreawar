@@ -2,13 +2,15 @@ package dev.hjp.koreawargame.presentation.viewmodel.game
 
 import NorthKoreaTaxProvince
 import SouthKoreaTaxProvince
+import SouthKoreaTaxProvince.JEJU
 import TaxProvince
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.game.GameRepository
 import dev.hjp.koreawargame.domain.ArmyState
 import dev.hjp.koreawargame.domain.EconomyState
 import dev.hjp.koreawargame.domain.GoldState
+import dev.hjp.koreawargame.domain.ProvinceState
 import dev.hjp.koreawargame.domain.ResearchState
 import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
@@ -20,7 +22,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class GameViewModel(
-    taxRepository: TaxRepository
+    gameRepository: GameRepository
 ) : ViewModel() {
 
     private val _gold = MutableStateFlow(GoldState())
@@ -29,20 +31,31 @@ class GameViewModel(
     private val _economy = MutableStateFlow(EconomyState())
     val economy = _economy
 
-    val regionCount = taxRepository.regionCountState
-
     private val _research = MutableStateFlow(ResearchState())
-    val research = _research
 
+    val research = _research
     private val _army = MutableStateFlow(ArmyState())
+
     val army = _army
 
-    private val southProvince = taxRepository.southProvince
-    private val northProvince = taxRepository.northProvince
+    private val _southProvince = MutableStateFlow(
+        SouthKoreaTaxProvince.entries.map { province ->
+            if (province == JEJU) ProvinceState(province, true)
+            else ProvinceState(province)
+        }
+    )
+    val southProvince = _southProvince
+
+    private val _northProvince = MutableStateFlow(
+        NorthKoreaTaxProvince.entries.map { province ->
+            ProvinceState(province)
+        }
+    )
+    val northProvince = _northProvince
 
     private val _gameOverEvent = MutableSharedFlow<Boolean>()
     val gameOverEvent = _gameOverEvent.asSharedFlow()
-    
+
     fun buyUnit(
         unitType: UnitType,
         times: Int = 1
@@ -78,7 +91,7 @@ class GameViewModel(
     }
 
     fun buyFacilities(facilities: Facilities) {
-        if (_gold.value.gold < facilities.cost || regionCount.value.regionCount < facilities.limitRegionCount) {
+        if (_gold.value.gold < facilities.cost || _economy.value.regionCount < facilities.limitRegionCount) {
             return
         }
 
@@ -155,5 +168,42 @@ class GameViewModel(
             population = _economy.value.population + country.clearIncreasePopulation,
             approvalRate = _economy.value.approvalRate - country.clearDecreaseApprovalRate
         )
+        increaseRegionCount()
+    }
+
+    fun reset() {
+        _gold.value = GoldState()
+        _economy.value = EconomyState()
+        _research.value = ResearchState()
+        _army.value = ArmyState()
+
+        _southProvince.value = SouthKoreaTaxProvince.entries.map { province ->
+            if (province == JEJU) ProvinceState(province, hasRegion = true)
+            else ProvinceState(province)
+        }
+
+        _northProvince.value = NorthKoreaTaxProvince.entries.map { province ->
+            ProvinceState(province)
+        }
+
+        viewModelScope.launch {
+            _gameOverEvent.emit(false)
+        }
+    }
+
+    fun increaseRegionCount() {
+        _economy.value = _economy.value.copy(
+            regionCount = _economy.value.regionCount + 1
+        )
+
+        val count = _economy.value.regionCount
+
+        _southProvince.value = _southProvince.value.map {
+            if (count >= it.province.unlockAt) it.copy(hasRegion = true) else it
+        }
+
+        _northProvince.value = _northProvince.value.map {
+            if (count >= it.province.unlockAt) it.copy(hasRegion = true) else it
+        }
     }
 }

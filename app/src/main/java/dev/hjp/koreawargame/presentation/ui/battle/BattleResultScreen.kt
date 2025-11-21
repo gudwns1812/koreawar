@@ -26,8 +26,8 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
-import dev.hjp.koreawargame.data.repository.BattleRepository
-import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
+import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
 import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
@@ -41,6 +41,15 @@ fun BattleResultScreen(
     navController: NavController = rememberNavController()
 ) {
     val isWin = result == "win"
+    val battleCity = battleViewModel.currentTarget.value
+
+    if (isWin && battleCity.regionName == "서울") {
+        navController.navigate("gameClear") {
+            popUpTo("result/${result}") {
+                inclusive = true
+            }
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -61,7 +70,6 @@ fun BattleResultScreen(
         )
 
         val country = battleViewModel.selectedCountry.value ?: error("나라가 없습니다.")
-        val battleCity = battleViewModel.currentTarget.value
         val color = country.color
 
         Column(
@@ -170,7 +178,7 @@ fun BattleResultScreen(
 fun BattleResultPreview() {
     BattleResultScreen(
         "win",
-        battleViewModel = BattleViewModel(BattleRepository(), TaxRepository()),
-        gameViewModel = GameViewModel(TaxRepository())
+        battleViewModel = BattleViewModel(FakeBattleRepository()),
+        gameViewModel = GameViewModel(FakeGameRepository())
     )
 }

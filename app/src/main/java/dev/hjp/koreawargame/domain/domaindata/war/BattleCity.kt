@@ -1,5 +1,8 @@
 package dev.hjp.koreawargame.domain.domaindata.war
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class BattleCity(
     val id: Int,
     val regionName: String,

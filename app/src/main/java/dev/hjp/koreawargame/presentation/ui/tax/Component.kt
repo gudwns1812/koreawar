@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 import dev.hjp.koreawargame.ui.theme.OverlayDark
 
@@ -120,5 +121,5 @@ fun DescriptionTaxRule() {
 @Preview
 @Composable
 fun TaxBoxPreview() {
-    TaxBox(province = SouthKoreaTaxProvince.JEJU, viewModel = GameViewModel(TaxRepository()))
+    TaxBox(province = SouthKoreaTaxProvince.JEJU, viewModel = GameViewModel(FakeGameRepository()))
 }

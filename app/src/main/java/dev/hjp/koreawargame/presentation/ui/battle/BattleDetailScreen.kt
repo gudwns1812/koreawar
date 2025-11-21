@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
-import dev.hjp.koreawargame.data.repository.BattleRepository
-import dev.hjp.koreawargame.data.repository.TaxRepository
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
+import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
@@ -172,11 +172,10 @@ fun UserMilitaryBox(
 fun BattleDetailScreenPreview() {
     BattleDetailScreen(
         battleViewModel = BattleViewModel(
-            battleRepository = BattleRepository(),
-            taxRepository = TaxRepository()
+            battleRepository = FakeBattleRepository()
         ),
         gameViewModel = GameViewModel(
-            TaxRepository()
+            FakeGameRepository()
         )
     )
 }

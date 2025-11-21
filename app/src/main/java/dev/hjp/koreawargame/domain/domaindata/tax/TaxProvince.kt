@@ -14,7 +14,7 @@ enum class SouthKoreaTaxProvince(
     GYEONGSANG("경상", 15, 9),
     CHUNGCHEONG("충청", 20, 13),
     GANGWON("강원", 25, 24),
-    GYEONGGI("경기", 45);
+    GYEONGGI("경기", 45, 52);
 }
 
 enum class NorthKoreaTaxProvince(
