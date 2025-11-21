@@ -1,6 +1,5 @@
 package dev.hjp.koreawargame.data.repository
 
-import dev.hjp.koreawargame.domain.BattleProvinceState
 import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 import dev.hjp.koreawargame.domain.domaindata.war.Country
 import dev.hjp.koreawargame.domain.domaindata.war.initialCountries
@@ -15,19 +14,16 @@ class BattleRepository {
     val countries: StateFlow<List<Country>> = _countries
 
     private val _currentTarget = MutableStateFlow(
-        BattleProvinceState(
-            battleCity = jeollaCountry.cities[0]
-        )
+        jeollaCountry.cities[0]
     )
-    val currentTarget: StateFlow<BattleProvinceState> = _currentTarget
+    val currentTarget: StateFlow<BattleCity> = _currentTarget
 
     fun clearCity() {
         _countries.update { list ->
             list.map { country ->
                 country.copy(
                     cities = country.cities.map { city ->
-                        if (city == currentTarget.value.battleCity) {
-                            changeCurrentTarget(city)
+                        if (city.id == currentTarget.value.id) {
                             city.copy(
                                 isClear = true
                             )
@@ -37,16 +33,21 @@ class BattleRepository {
             }
         }
 
+        println(_countries.value[0].cities[0])
     }
 
-    private fun changeCurrentTarget(battleCity: BattleCity) {
-        val nextId = _currentTarget.value.battleCity.id + 1
+    fun changeCurrentTarget() {
+        val nextId = _currentTarget.value.id + 1
 
         val nextTarget = _countries.value.flatMap { it.cities }
             .firstOrNull { it.id == nextId }
 
+        _currentTarget.value = nextTarget!!
+    }
+
+    fun damageEnemy(damage: Long) {
         _currentTarget.value = _currentTarget.value.copy(
-            battleCity = nextTarget ?: battleCity
+            militaryPower = _currentTarget.value.militaryPower - damage
         )
     }
 

@@ -40,7 +40,7 @@ fun BattleDetailScreen(
     gameViewModel: GameViewModel,
     navController: NavController = rememberNavController()
 ) {
-    val battleCity = battleViewModel.currentTarget.collectAsState().value.battleCity
+    val battleCity = battleViewModel.currentTarget.collectAsState().value
     val color = battleViewModel.selectedCountry.value?.color ?: Color.Yellow
 
     Box(modifier = Modifier.fillMaxSize()) {

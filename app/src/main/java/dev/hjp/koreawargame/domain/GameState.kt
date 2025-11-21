@@ -22,8 +22,8 @@ data class ResearchState(
 )
 
 data class ArmyState(
-    val militaryPower: Long = 100L,
-    val fightPower: Double = 10.0
+    val militaryPower: Long = 100_000L,
+    val fightPower: Double = militaryPower / 10.0
 )
 
 data class ProvinceState(

@@ -13,6 +13,7 @@ import dev.hjp.koreawargame.domain.ResearchState
 import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
 import dev.hjp.koreawargame.domain.domaindata.UnitType
+import dev.hjp.koreawargame.domain.domaindata.war.Country
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -146,7 +147,16 @@ class GameViewModel(
 
     fun damagePlayer(enemyMilitaryPower: Long) {
         _army.value = _army.value.copy(
-            militaryPower = _army.value.militaryPower - (enemyMilitaryPower / 10)
+            militaryPower = (_army.value.militaryPower - (enemyMilitaryPower / 10)).coerceAtLeast(0)
+        )
+    }
+
+    fun winSettle(
+        country: Country
+    ) {
+        _economy.value = _economy.value.copy(
+            population = _economy.value.population + country.clearIncreasePopulation,
+            approvalRate = _economy.value.approvalRate - country.clearDecreaseApprovalRate
         )
     }
 }

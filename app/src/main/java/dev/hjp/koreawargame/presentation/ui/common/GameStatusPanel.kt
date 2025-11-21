@@ -7,17 +7,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 import java.text.DecimalFormat
 
 @Composable
 fun GameStatusPanel(
-    viewModel: GameViewModel
+    viewModel: GameViewModel,
+    navController: NavController = rememberNavController()
 ) {
     val goldState = viewModel.gold.collectAsState()
     val economyState = viewModel.economy.collectAsState()
@@ -75,10 +79,18 @@ fun GameStatusPanel(
                 fontWeight = FontWeight.ExtraBold
             )
             Text(
-                text = "지역수: ${regionCountState.value.regionCount}%",
+                text = "지역수: ${regionCountState.value.regionCount}",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.ExtraBold
             )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.gameOverEvent.collect {
+            if (it) {
+                navController.navigate("gameOver")
+            }
         }
     }
 }

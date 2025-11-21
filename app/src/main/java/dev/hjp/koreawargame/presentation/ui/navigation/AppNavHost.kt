@@ -120,16 +120,24 @@ fun AppNavHost(
                 gameViewModel = gameViewModel,
                 battleViewModel = battleViewModel,
                 navController = navController
-            )
+            ) {
+                battleViewModel.startBattle()
+            }
         }
 
         composable("result/{result}") { backStackEntry ->
             val result = backStackEntry.arguments?.getString("result") ?: "win"
+
             BattleResultScreen(
                 result = result,
                 battleViewModel = battleViewModel,
+                gameViewModel = gameViewModel,
                 navController = navController
             )
+        }
+
+        composable("gameOver") {
+
         }
     }
 }

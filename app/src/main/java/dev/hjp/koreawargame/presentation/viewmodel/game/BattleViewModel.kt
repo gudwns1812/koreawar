@@ -2,42 +2,77 @@ package dev.hjp.koreawargame.presentation.viewmodel.game
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
-import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 import dev.hjp.koreawargame.domain.domaindata.war.Country
+import dev.hjp.koreawargame.domain.domaindata.war.jeollaCountry
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 class BattleViewModel(
     private val battleRepository: BattleRepository,
     private val taxRepository: TaxRepository
 ) : ViewModel() {
+    val currentTarget = battleRepository.currentTarget
+    private val _selectedCountry = mutableStateOf<Country?>(jeollaCountry)
+    val selectedCountry: State<Country?> = _selectedCountry
 
-    val battleCountries = battleRepository.countries.value
-
-    val currentTarget = battleRepository.currentTarget.value
-
-    private val _selectedCity = mutableStateOf<BattleCity?>(null)
-    val selectedCity: State<BattleCity?> = _selectedCity
-
-    private val _selectedColor = mutableStateOf<Color?>(null)
-    val selectedColor: State<Color?> = _selectedColor
+    private val _uiEvent = MutableSharedFlow<UiEvent>(1)
+    val uiEvent = _uiEvent.asSharedFlow()
 
     fun findCountry(countryName: String): Country {
-        return battleCountries.first { it.countryName == countryName }
+        battleRepository.countries.value.forEach {
+            if (it.countryName == countryName) {
+                return it
+            }
+        }
+        return jeollaCountry
     }
 
-    fun clear(battleCity: BattleCity) {
+    fun clear() {
         battleRepository.clearCity()
+        battleRepository.changeCurrentTarget()
         taxRepository.increaseRegionCount()
     }
 
-    fun selectCity(
-        battleCity: BattleCity,
-        color: Color
+    fun selectCountry(
+        country: Country
     ) {
-        _selectedCity.value = battleCity
-        _selectedColor.value = color
+        _selectedCountry.value = country
+    }
+
+    fun damageEnemy(
+        damage: Long
+    ) {
+        battleRepository.damageEnemy((damage / 10))
+    }
+
+    fun proceedTurn(
+        userMilitary: Long,
+    ) {
+        // HP 체크 후 이벤트 발송
+        if (userMilitary <= 0) {
+            viewModelScope.launch { _uiEvent.emit(UiEvent.Lose) }
+        }
+        if (currentTarget.value.militaryPower <= 0) {
+            viewModelScope.launch { _uiEvent.emit(UiEvent.Win) }
+        }
+    }
+
+    fun enemyHp(): Long {
+        return battleRepository.currentTarget.value.militaryPower
+    }
+
+    fun startBattle() {
+        viewModelScope.launch { _uiEvent.emit(UiEvent.None) }
+    }
+
+    sealed class UiEvent {
+        object Win : UiEvent()
+        object Lose : UiEvent()
+        object None : UiEvent()
     }
 }

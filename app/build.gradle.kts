@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "dev.hjp.koreawargame"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.compose.material.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

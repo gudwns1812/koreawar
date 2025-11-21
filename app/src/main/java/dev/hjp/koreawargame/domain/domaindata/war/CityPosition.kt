@@ -121,7 +121,7 @@ fun ShowCities(
     cityPositions.forEach { pos ->
         val country = battleViewModel.findCountry(pos.countryName)
         val city = country.cities.find { it.regionName == pos.regionName } ?: return@forEach
-        val currentTarget = battleViewModel.currentTarget.collectAsState().value.battleCity
+        val currentTarget = battleViewModel.currentTarget.collectAsState().value
 
         val isCurrent = city == currentTarget
 
@@ -138,7 +138,11 @@ fun ShowCities(
         }
 
         if (city.isClear) {
-            ClearBox()
+            ClearBox(
+                modifier = Modifier
+                    .zIndex(1f)
+                    .offset(width.times(pos.x), height.times(pos.y)),
+            )
         } else {
             BattleBox(
                 modifier = Modifier
