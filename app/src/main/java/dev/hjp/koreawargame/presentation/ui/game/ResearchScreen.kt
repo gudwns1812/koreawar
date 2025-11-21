@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
 import dev.hjp.koreawargame.presentation.ui.common.ItemListScreen
@@ -13,13 +15,13 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 @Composable
 fun ResearchScreen(
     viewModel: GameViewModel,
-    onBackClick: () -> Unit = { }
+    navController: NavController = rememberNavController()
 ) {
     ItemListScreen(
         items = ResearchItem.entries.sortedBy { it.cost },
         viewModel = viewModel,
-        onItemClick = { research -> viewModel.buyResearch(research) },
-        onBackClick = onBackClick
+        navController = navController,
+        onItemClick = { research -> viewModel.buyResearch(research) }
     ) { research ->
         Text(
             text = research.displayName,

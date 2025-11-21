@@ -41,21 +41,21 @@ fun AppNavHost(
         composable("factory") {
             FactoryScreen(
                 viewModel = gameViewModel,
-                onBackClick = { navController.popBackStack() }
+                navController = navController
             )
         }
 
         composable("facilities") {
             FacilitiesScreen(
                 viewModel = gameViewModel,
-                onBackClick = { navController.popBackStack() }
+                navController = navController
             )
         }
 
         composable("research") {
             ResearchScreen(
                 viewModel = gameViewModel,
-                onBackClick = { navController.popBackStack() }
+                navController = navController
             )
         }
 
@@ -69,7 +69,7 @@ fun AppNavHost(
         composable("northKoreaTax") {
             NorthKoreaTaxScreen(
                 viewModel = gameViewModel,
-                onBackClick = { navController.popBackStack() }
+                navController = navController
             )
         }
 
@@ -93,8 +93,7 @@ fun AppNavHost(
             NorthBattleScreen(
                 battleViewModel,
                 gameViewModel,
-                onBackClick = { navController.popBackStack() },
-                onBattleDetailClick = { navController.navigate("battleDetail") }
+                navController = navController
             )
         }
 
@@ -102,8 +101,7 @@ fun AppNavHost(
             NorthKoreaBattleScreen(
                 battleViewModel,
                 gameViewModel,
-                onBackClick = { navController.popBackStack() },
-                onBattleDetailClick = { navController.navigate("battleDetail") }
+                navController = navController
             )
         }
 

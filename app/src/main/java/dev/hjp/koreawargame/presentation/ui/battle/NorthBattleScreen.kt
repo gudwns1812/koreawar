@@ -14,6 +14,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
@@ -29,8 +31,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 fun NorthBattleScreen(
     battleViewModel: BattleViewModel,
     gameViewModel: GameViewModel,
-    onBackClick: () -> Unit = {},
-    onBattleDetailClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
     GameLayout(
         content = {
@@ -55,7 +56,7 @@ fun NorthBattleScreen(
                     boxWidth,
                     boxHeight,
                     battleViewModel,
-                    onBattleDetailClick
+                    navController
                 )
 
                 Triangle(
@@ -64,11 +65,16 @@ fun NorthBattleScreen(
                     sizeDp = 50.dp,
                     description = "중부 지역",
                     angle = 90f
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
 
-        bottomContent = { GameStatusPanel(gameViewModel) }
+        bottomContent = {
+            GameStatusPanel(
+                gameViewModel,
+                navController = navController
+            )
+        }
     )
 }
 
@@ -77,11 +83,13 @@ fun NorthBattleContent(
     width: Dp,
     height: Dp,
     battleViewModel: BattleViewModel,
-    onBattleDetailClick: () -> Unit
+    navController: NavController
 ) {
     val cityPositions = remember { northCityPositions }
 
-    ShowCities(cityPositions, battleViewModel, width, height, onBattleDetailClick)
+    ShowCities(
+        cityPositions, battleViewModel, width, height,
+        { navController.navigate("battleDetail") })
 }
 
 @Preview

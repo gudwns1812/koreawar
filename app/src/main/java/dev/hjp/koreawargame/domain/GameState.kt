@@ -1,7 +1,6 @@
 package dev.hjp.koreawargame.domain
 
 import TaxProvince
-import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 
 data class GoldState(
     val gold: Long = 1_000L,
@@ -29,9 +28,4 @@ data class ArmyState(
 data class ProvinceState(
     val province: TaxProvince,
     val hasRegion: Boolean = false
-)
-
-data class BattleProvinceState(
-    val battleCity: BattleCity,
-    val isClear: Boolean = false
 )

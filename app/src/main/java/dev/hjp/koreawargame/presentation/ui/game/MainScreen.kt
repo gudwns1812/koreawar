@@ -96,7 +96,10 @@ fun MainScreen(
             }
         },
         bottomContent = {
-            GameStatusPanel(viewModel = viewModel)
+            GameStatusPanel(
+                viewModel = viewModel,
+                navController = navController
+            )
         }
     )
 }

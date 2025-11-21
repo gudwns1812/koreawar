@@ -75,7 +75,10 @@ fun SouthBattleScreen(
                 ) { navController.popBackStack() }
             }
         },
-        bottomContent = { GameStatusPanel(gameViewModel) }
+        bottomContent = { GameStatusPanel(
+            gameViewModel,
+            navController = navController
+        ) }
     )
 }
 

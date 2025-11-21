@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
@@ -33,7 +35,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 @Composable
 fun NorthKoreaTaxScreen(
     viewModel: GameViewModel,
-    onBackClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
     GameLayout(
         content = {
@@ -65,13 +67,14 @@ fun NorthKoreaTaxScreen(
                     sizeDp = 50.dp,
                     description = "남한 지역",
                     angle = 90f
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
 
         bottomContent = {
             GameStatusPanel(
                 viewModel = viewModel,
+                navController = navController
             )
         }
     )

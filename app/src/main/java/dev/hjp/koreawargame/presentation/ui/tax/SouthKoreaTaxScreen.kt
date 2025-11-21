@@ -77,7 +77,12 @@ fun SouthKoreaTaxScreen(
             }
         },
 
-        bottomContent = { GameStatusPanel(viewModel = viewModel) }
+        bottomContent = {
+            GameStatusPanel(
+                viewModel = viewModel,
+                navController = navController
+            )
+        }
     )
 }
 

@@ -42,10 +42,7 @@ class GameViewModel(
 
     private val _gameOverEvent = MutableSharedFlow<Boolean>()
     val gameOverEvent = _gameOverEvent.asSharedFlow()
-
-
-    private var lastClickTime = 0L
-    private val throttle = 700L
+    
     fun buyUnit(
         unitType: UnitType,
         times: Int = 1

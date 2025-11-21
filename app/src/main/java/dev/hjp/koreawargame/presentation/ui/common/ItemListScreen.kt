@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import dev.hjp.koreawargame.domain.domaindata.GameItem
 import dev.hjp.koreawargame.domain.domaindata.UnitType
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
@@ -31,9 +32,9 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 fun <T : GameItem> ItemListScreen(
     items: List<T>,
     viewModel: GameViewModel,
+    navController: NavController,
     onItemClick: (T) -> Unit,
     on10ItemClick: ((T) -> Unit) = { },
-    onBackClick: () -> Unit = { },
     descriptionSection: @Composable (T) -> Unit = {}
 ) {
 
@@ -61,10 +62,15 @@ fun <T : GameItem> ItemListScreen(
                         .align(Alignment.Start),
                     sizeDp = 50.dp,
                     description = "메인 화면",
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
-        bottomContent = { GameStatusPanel(viewModel = viewModel) }
+        bottomContent = {
+            GameStatusPanel(
+                viewModel = viewModel,
+                navController = navController
+            )
+        }
     )
 }
 

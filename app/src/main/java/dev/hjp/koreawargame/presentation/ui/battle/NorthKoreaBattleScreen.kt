@@ -15,6 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.BattleRepository
 import dev.hjp.koreawargame.data.repository.TaxRepository
@@ -30,8 +32,7 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 fun NorthKoreaBattleScreen(
     battleViewModel: BattleViewModel,
     gameViewModel: GameViewModel,
-    onBackClick: () -> Unit = {},
-    onBattleDetailClick: () -> Unit = {}
+    navController: NavController = rememberNavController()
 ) {
     GameLayout(
         content = {
@@ -56,7 +57,7 @@ fun NorthKoreaBattleScreen(
                     boxWidth,
                     boxHeight,
                     battleViewModel,
-                    onBattleDetailClick
+                    navController
                 )
 
                 Triangle(
@@ -65,7 +66,7 @@ fun NorthKoreaBattleScreen(
                     sizeDp = 50.dp,
                     description = "중부 지역",
                     angle = 90f
-                ) { onBackClick() }
+                ) { navController.popBackStack() }
             }
         },
         bottomContent = { GameStatusPanel(gameViewModel) }
@@ -77,11 +78,18 @@ fun NorthKoreaBattleContent(
     width: Dp,
     height: Dp,
     battleViewModel: BattleViewModel,
-    onBattleDetailClick: () -> Unit
+    navController: NavController
 ) {
     val cityPositions = remember { northKoreaCityPositions }
 
-    ShowCities(cityPositions, battleViewModel, width, height, onBattleDetailClick, Color.White)
+    ShowCities(
+        cityPositions,
+        battleViewModel,
+        width,
+        height,
+        onBattleDetailClick = { navController.navigate("battleDetail") },
+        fixedTextColor = Color.White
+    )
 }
 
 @Preview

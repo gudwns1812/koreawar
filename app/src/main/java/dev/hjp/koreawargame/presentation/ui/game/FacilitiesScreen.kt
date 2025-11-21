@@ -2,6 +2,8 @@ package dev.hjp.koreawargame.presentation.ui.game
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.presentation.ui.common.ItemDescriptionText
@@ -12,13 +14,13 @@ import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 @Composable
 fun FacilitiesScreen(
     viewModel: GameViewModel,
-    onBackClick: () -> Unit = { }
+    navController: NavController = rememberNavController(),
 ) {
     ItemListScreen(
         items = Facilities.entries.sortedBy { it.cost },
         viewModel = viewModel,
+        navController = navController,
         onItemClick = { facility -> viewModel.buyFacilities(facility) },
-        onBackClick = onBackClick
     ) { facility ->
         ItemNameText(facility.displayName)
         ItemDescriptionText("예산 - ${facility.cost}")
