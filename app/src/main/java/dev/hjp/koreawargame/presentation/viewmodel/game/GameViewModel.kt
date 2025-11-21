@@ -16,13 +16,14 @@ import dev.hjp.koreawargame.domain.domaindata.Facilities
 import dev.hjp.koreawargame.domain.domaindata.ResearchItem
 import dev.hjp.koreawargame.domain.domaindata.UnitType
 import dev.hjp.koreawargame.domain.domaindata.war.Country
+import dev.hjp.koreawargame.domain.gamesave.StateSaveData
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class GameViewModel(
-    gameRepository: GameRepository
+    private val gameRepository: GameRepository
 ) : ViewModel() {
 
     private val _gold = MutableStateFlow(GoldState())
@@ -55,6 +56,20 @@ class GameViewModel(
 
     private val _gameOverEvent = MutableSharedFlow<Boolean>()
     val gameOverEvent = _gameOverEvent.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            gameRepository.savedStateData.collect { data ->
+                _gold.value = data.gold
+                _economy.value = data.economy
+                _research.value = data.research
+                _army.value = data.army
+                _southProvince.value = data.southProvince
+                _northProvince.value = data.northProvince
+            }
+        }
+    }
+
 
     fun buyUnit(
         unitType: UnitType,
@@ -204,6 +219,21 @@ class GameViewModel(
 
         _northProvince.value = _northProvince.value.map {
             if (count >= it.province.unlockAt) it.copy(hasRegion = true) else it
+        }
+    }
+
+    fun save() {
+        viewModelScope.launch {
+            val saveData = StateSaveData(
+                gold = _gold.value,
+                economy = _economy.value,
+                research = _research.value,
+                army = _army.value,
+                southProvince = _southProvince.value,
+                northProvince = _northProvince.value
+            )
+
+            gameRepository.save(saveData)
         }
     }
 }

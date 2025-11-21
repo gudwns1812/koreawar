@@ -13,19 +13,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
 import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
+import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 
 
 @Composable
 fun MainScreen(
     viewModel: GameViewModel,
+    battleViewModel: BattleViewModel,
     navController: NavController = rememberNavController(),
 ) {
     GameLayout(
+        gameViewModel = viewModel,
+        battleViewModel = battleViewModel,
         content = {
             BoxWithConstraints(Modifier.fillMaxSize()) {
                 val boxWidth = maxWidth
@@ -108,5 +113,8 @@ fun MainScreen(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen(GameViewModel(FakeGameRepository()))
+    MainScreen(
+        viewModel = GameViewModel(FakeGameRepository()),
+        battleViewModel = BattleViewModel(FakeBattleRepository())
+    )
 }

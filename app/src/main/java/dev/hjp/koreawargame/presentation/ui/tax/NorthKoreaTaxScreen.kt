@@ -26,18 +26,23 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.hjp.koreawargame.R
+import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
 import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.presentation.ui.common.GameLayout
 import dev.hjp.koreawargame.presentation.ui.common.GameStatusPanel
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
+import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 
 @Composable
 fun NorthKoreaTaxScreen(
     viewModel: GameViewModel,
+    battleViewModel: BattleViewModel,
     navController: NavController = rememberNavController()
 ) {
     GameLayout(
+        gameViewModel = viewModel,
+        battleViewModel = battleViewModel,
         content = {
             BoxWithConstraints(
                 modifier = Modifier.fillMaxSize()
@@ -140,6 +145,9 @@ fun BoxScope.DescriptionNorthKoreaTax() {
 @Preview
 @Composable
 fun NorthKoreaTaxPreview() {
-    NorthKoreaTaxScreen(viewModel = GameViewModel(FakeGameRepository()))
+    NorthKoreaTaxScreen(
+        viewModel = GameViewModel(FakeGameRepository()),
+        battleViewModel = BattleViewModel(FakeBattleRepository())
+    )
 }
 

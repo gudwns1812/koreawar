@@ -34,6 +34,8 @@ fun NorthBattleScreen(
     navController: NavController = rememberNavController()
 ) {
     GameLayout(
+        gameViewModel = gameViewModel,
+        battleViewModel = battleViewModel,
         content = {
             BoxWithConstraints(
                 modifier = Modifier

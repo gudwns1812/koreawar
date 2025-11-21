@@ -26,12 +26,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.hjp.koreawargame.domain.domaindata.GameItem
 import dev.hjp.koreawargame.domain.domaindata.UnitType
+import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
 
 @Composable
 fun <T : GameItem> ItemListScreen(
     items: List<T>,
     viewModel: GameViewModel,
+    battleViewModel: BattleViewModel,
     navController: NavController,
     onItemClick: (T) -> Unit,
     on10ItemClick: ((T) -> Unit) = { },
@@ -39,6 +41,8 @@ fun <T : GameItem> ItemListScreen(
 ) {
 
     GameLayout(
+        gameViewModel = viewModel,
+        battleViewModel = battleViewModel,
         content = {
             Column(modifier = Modifier.fillMaxSize()) {
                 LazyColumn(

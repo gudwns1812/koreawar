@@ -36,6 +36,7 @@ fun AppNavHost(
         composable("main") {
             MainScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }
@@ -43,6 +44,7 @@ fun AppNavHost(
         composable("factory") {
             FactoryScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }
@@ -50,6 +52,7 @@ fun AppNavHost(
         composable("facilities") {
             FacilitiesScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }
@@ -57,6 +60,7 @@ fun AppNavHost(
         composable("research") {
             ResearchScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }
@@ -64,6 +68,7 @@ fun AppNavHost(
         composable("tax") {
             SouthKoreaTaxScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }
@@ -71,6 +76,7 @@ fun AppNavHost(
         composable("northKoreaTax") {
             NorthKoreaTaxScreen(
                 viewModel = gameViewModel,
+                battleViewModel = battleViewModel,
                 navController = navController
             )
         }

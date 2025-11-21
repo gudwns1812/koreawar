@@ -14,18 +14,16 @@ class GameRepositoryImpl(
             it.copy(
                 gold = data.gold,
                 economy = data.economy,
-                regionCountState = data.regionCountState,
                 research = data.research,
                 army = data.army,
             )
         }
     }
 
-    val savedStateData: Flow<StateSaveData> = dataStore.data.map {
+    override val savedStateData: Flow<StateSaveData> = dataStore.data.map {
         StateSaveData(
             it.gold,
             it.economy,
-            it.regionCountState,
             it.research,
             it.army
         )

@@ -33,6 +33,16 @@ class BattleViewModel(
     private val _uiEvent = MutableSharedFlow<UiEvent>(1)
     val uiEvent = _uiEvent.asSharedFlow()
 
+    init {
+        viewModelScope.launch {
+            battleRepository.savedBattleData.collect { data ->
+                _countries.value = data.countries
+                _currentTarget.value = _countries.value.flatMap { it.cities }
+                    .find { it.id == data.currentTargetId } ?: jeollaCountry.cities[0]
+            }
+        }
+    }
+
     fun findCountry(countryName: String): Country {
         countries.value.forEach {
             if (it.countryName == countryName) {
@@ -117,7 +127,7 @@ class BattleViewModel(
         _currentTarget.value = jeollaCountry.cities[0]
     }
 
-    fun saveBattleState() {
+    fun save() {
         viewModelScope.launch {
             val saveData = BattleSaveData(
                 countries = _countries.value,
@@ -125,12 +135,5 @@ class BattleViewModel(
             )
             battleRepository.save(saveData)
         }
-    }
-
-    fun loadBattleState(saveData: BattleSaveData) {
-        _countries.value = saveData.countries
-        _currentTarget.value = _countries.value
-            .flatMap { it.cities }
-            .first { it.id == saveData.currentTargetId }
     }
 }

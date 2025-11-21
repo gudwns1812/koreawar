@@ -18,7 +18,7 @@ class BattleRepositoryImpl(
         }
     }
 
-    val savedBattleData: Flow<BattleSaveData> = dataStore.data.map {
+    override val savedBattleData: Flow<BattleSaveData> = dataStore.data.map {
         BattleSaveData(it.countries, it.currentTargetId)
     }
 }
