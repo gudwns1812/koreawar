@@ -51,7 +51,7 @@ fun NorthKoreaTaxScreen(
                 val boxHeight = maxHeight
 
                 Image(
-                    painter = painterResource(R.drawable.north_korea_map),
+                    painter = painterResource(R.drawable.north_tax_map),
                     contentDescription = null,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)

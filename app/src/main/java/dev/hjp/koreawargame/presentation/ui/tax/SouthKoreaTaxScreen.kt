@@ -47,7 +47,7 @@ fun SouthKoreaTaxScreen(
                 val boxHeight = maxHeight
 
                 Image(
-                    painter = painterResource(R.drawable.south_korea_map_without_bg),
+                    painter = painterResource(R.drawable.south_tax_map),
                     contentDescription = null,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -136,7 +136,7 @@ private fun SouthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.25f, boxHeight * 0.66f),
+            .offset(boxWidth * 0.22f, boxHeight * 0.69f),
         province = SouthKoreaTaxProvince.JEOLLA,
         viewModel = viewModel
     )
@@ -144,7 +144,7 @@ private fun SouthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.47f, boxHeight * 0.63f),
+            .offset(boxWidth * 0.47f, boxHeight * 0.64f),
         province = SouthKoreaTaxProvince.GYEONGSANG,
         viewModel = viewModel
     )
@@ -152,14 +152,14 @@ private fun SouthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.3f, boxHeight * 0.52f),
+            .offset(boxWidth * 0.3f, boxHeight * 0.55f),
         province = SouthKoreaTaxProvince.CHUNGCHEONG,
         viewModel = viewModel
     )
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.48f, boxHeight * 0.43f),
+            .offset(boxWidth * 0.48f, boxHeight * 0.45f),
         province = SouthKoreaTaxProvince.GANGWON,
         viewModel = viewModel
     )
@@ -167,7 +167,7 @@ private fun SouthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.27f, boxHeight * 0.38f),
+            .offset(boxWidth * 0.27f, boxHeight * 0.4f),
         province = SouthKoreaTaxProvince.GYEONGGI,
         viewModel = viewModel
     )
