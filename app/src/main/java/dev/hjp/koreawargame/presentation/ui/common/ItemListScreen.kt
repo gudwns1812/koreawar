@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -100,7 +101,8 @@ fun <T : GameItem> GameItemCard(
                 contentDescription = gameItem.displayName,
                 modifier = Modifier
                     .size(100.dp)
-                    .clickable { onClick(gameItem) }
+                    .clickable { onClick(gameItem) },
+                contentScale = ContentScale.FillBounds
             )
             Column(modifier = Modifier.padding(start = 8.dp)) {
                 descriptionSection(gameItem)

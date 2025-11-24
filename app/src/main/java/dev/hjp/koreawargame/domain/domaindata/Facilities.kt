@@ -16,7 +16,7 @@ enum class Facilities(
         populationIncrease = 200L,
         economyPowerIncrease = 1L,
         approvalRateIncrease = 0.01,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_house,
         displayName = "주거 시설 개발"
     ),
     COMMERCIAL(
@@ -25,7 +25,7 @@ enum class Facilities(
         economyPowerIncrease = 5L,
         approvalRateIncrease = 0.05,
         limitRegionCount = 3,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_commercial,
         displayName = "상업 시설 개발"
     ),
     LEISURE(
@@ -34,7 +34,7 @@ enum class Facilities(
         economyPowerIncrease = 27L,
         approvalRateIncrease = 0.2,
         limitRegionCount = 9,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_leisure,
         displayName = "여가 시설 개발"
     ),
     TRANSPORT(
@@ -43,7 +43,7 @@ enum class Facilities(
         economyPowerIncrease = 165L,
         approvalRateIncrease = 0.5,
         limitRegionCount = 15,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_transport,
         displayName = "교통 시설 개발"
     ),
     INDUSTRY(
@@ -52,7 +52,7 @@ enum class Facilities(
         economyPowerIncrease = 1_100L,
         approvalRateIncrease = 1.5,
         limitRegionCount = 24,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_industry,
         displayName = "산업 시설 개발"
     ),
     NEW_CITY(
@@ -61,7 +61,7 @@ enum class Facilities(
         economyPowerIncrease = 17_000L,
         approvalRateIncrease = 3.5,
         limitRegionCount = 39,
-        imageRes = R.drawable.house_develop,
+        imageRes = R.drawable.facility_new_city,
         displayName = "신도시 개발"
     )
 }
