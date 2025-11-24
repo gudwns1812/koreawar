@@ -75,3 +75,7 @@
 ## 게임 화면
 
 ![img.png](img.png)
+![research_screen.png](research_screen.png)
+![south_tax_screen.png](south_tax_screen.png)
+![battle_map.png](battle_map.png)
+![battle_screen.png](battle_screen.png)
