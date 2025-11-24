@@ -14,8 +14,8 @@ import dev.hjp.koreawargame.presentation.ui.battle.BattleBox
 import dev.hjp.koreawargame.presentation.ui.battle.BattleStar
 import dev.hjp.koreawargame.presentation.ui.battle.ClearBox
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
+import dev.hjp.koreawargame.presentation.ui.theme.OverlayDark
 import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
-import dev.hjp.koreawargame.ui.theme.OverlayDark
 
 data class CityPosition(
     val countryName: String,

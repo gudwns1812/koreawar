@@ -29,9 +29,9 @@ import dev.hjp.koreawargame.R
 import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
 import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
 import dev.hjp.koreawargame.presentation.ui.common.Triangle
+import dev.hjp.koreawargame.presentation.ui.theme.ForestGreen
 import dev.hjp.koreawargame.presentation.viewmodel.game.BattleViewModel
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
-import dev.hjp.koreawargame.ui.theme.ForestGreen
 
 @Composable
 fun BattleResultScreen(

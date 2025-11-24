@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.hjp.koreawargame.domain.domaindata.war.BattleCity
 import dev.hjp.koreawargame.presentation.ui.common.safeClickable
-import dev.hjp.koreawargame.ui.theme.ForestGreen
+import dev.hjp.koreawargame.presentation.ui.theme.ForestGreen
 import kotlin.math.cos
 import kotlin.math.sin
 

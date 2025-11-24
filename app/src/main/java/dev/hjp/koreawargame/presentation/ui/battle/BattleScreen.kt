@@ -49,7 +49,7 @@ fun BattleScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.backgroud_map),
+            painter = painterResource(id = R.drawable.battle_map),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds

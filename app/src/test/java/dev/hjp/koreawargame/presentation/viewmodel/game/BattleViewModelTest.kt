@@ -1,6 +1,5 @@
 package dev.hjp.koreawargame.presentation.viewmodel.game
 
-import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.data.repository.battle.FakeBattleRepository
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
@@ -14,7 +13,9 @@ class BattleViewModelTest {
 
     @Before
     fun setUp() {
-        repository = BattleViewModel(FakeBattleRepository(), TaxRepository())
+        repository = BattleViewModel(
+            FakeBattleRepository()
+        )
     }
 
     @Test

@@ -2,13 +2,13 @@ package dev.hjp.koreawargame.domain.domaindata.war
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import dev.hjp.koreawargame.ui.theme.Apricot
-import dev.hjp.koreawargame.ui.theme.MintGreen
-import dev.hjp.koreawargame.ui.theme.NeonGreen
-import dev.hjp.koreawargame.ui.theme.Orange
-import dev.hjp.koreawargame.ui.theme.Pink40
-import dev.hjp.koreawargame.ui.theme.Purple40
-import dev.hjp.koreawargame.ui.theme.SkyBlue
+import dev.hjp.koreawargame.presentation.ui.theme.Apricot
+import dev.hjp.koreawargame.presentation.ui.theme.MintGreen
+import dev.hjp.koreawargame.presentation.ui.theme.NeonGreen
+import dev.hjp.koreawargame.presentation.ui.theme.Orange
+import dev.hjp.koreawargame.presentation.ui.theme.Pink40
+import dev.hjp.koreawargame.presentation.ui.theme.Purple40
+import dev.hjp.koreawargame.presentation.ui.theme.SkyBlue
 import kotlinx.serialization.Serializable
 
 @Serializable

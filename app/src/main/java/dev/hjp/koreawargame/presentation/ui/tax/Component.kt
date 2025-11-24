@@ -25,10 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.hjp.koreawargame.data.repository.TaxRepository
 import dev.hjp.koreawargame.data.repository.game.FakeGameRepository
+import dev.hjp.koreawargame.presentation.ui.theme.ForestGreen
+import dev.hjp.koreawargame.presentation.ui.theme.OverlayMediumGray
 import dev.hjp.koreawargame.presentation.viewmodel.game.GameViewModel
-import dev.hjp.koreawargame.ui.theme.OverlayDark
 
 
 @Composable
@@ -57,7 +57,7 @@ fun TaxBox(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(if (hasRegion) Color.Green else OverlayDark)
+                .background(if (hasRegion) ForestGreen else OverlayMediumGray)
         )
 
         if (isOnCooldown) {
@@ -114,12 +114,12 @@ fun DescriptionTaxRule() {
             가지고 있어야 합니다.
         """.trimIndent(),
         fontWeight = FontWeight.Bold,
-        fontSize = 15.sp
+        fontSize = 14.sp
     )
 }
 
 @Preview
 @Composable
 fun TaxBoxPreview() {
-    TaxBox(province = SouthKoreaTaxProvince.JEJU, viewModel = GameViewModel(FakeGameRepository()))
+    TaxBox(province = SouthKoreaTaxProvince.JEOLLA, viewModel = GameViewModel(FakeGameRepository()))
 }
