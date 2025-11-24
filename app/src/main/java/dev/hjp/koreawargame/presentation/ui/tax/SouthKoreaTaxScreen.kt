@@ -52,7 +52,7 @@ fun SouthKoreaTaxScreen(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .zIndex(1f),
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.Crop,
                 )
 
                 Box(modifier = Modifier.fillMaxSize()) {

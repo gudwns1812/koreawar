@@ -1,4 +1,4 @@
-package dev.hjp.koreawargame.ui.theme
+package dev.hjp.koreawargame.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

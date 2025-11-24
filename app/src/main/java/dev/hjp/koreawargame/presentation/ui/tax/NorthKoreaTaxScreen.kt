@@ -57,7 +57,7 @@ fun NorthKoreaTaxScreen(
                         .align(Alignment.BottomCenter)
                         .size(boxWidth * 2f, boxHeight * 0.9f)
                         .zIndex(1f),
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.Crop,
                 )
 
                 NorthKoreaTaxContents(boxWidth, boxHeight, viewModel)
@@ -68,7 +68,8 @@ fun NorthKoreaTaxScreen(
 
                 Triangle(
                     modifier = Modifier
-                        .align(Alignment.BottomCenter),
+                        .align(Alignment.BottomStart)
+                        .offset(x = 40.dp),
                     sizeDp = 50.dp,
                     description = "남한 지역",
                     angle = 90f
@@ -94,7 +95,7 @@ fun NorthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.24f, bodHeight * 0.8f),
+            .offset(boxWidth * 0.17f, bodHeight * 0.8f),
         province = HWANGHAE,
         viewModel = viewModel
     )
@@ -102,14 +103,14 @@ fun NorthKoreaTaxContents(
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.44f, bodHeight * 0.6f),
+            .offset(boxWidth * 0.4f, bodHeight * 0.62f),
         province = WONSAN,
         viewModel = viewModel
     )
     TaxBox(
         modifier = Modifier
             .zIndex(1f)
-            .offset(boxWidth * 0.22f, bodHeight * 0.55f),
+            .offset(boxWidth * 0.15f, bodHeight * 0.57f),
         province = PYEONGAN,
         viewModel = viewModel
     )

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import dev.hjp.koreawargame.data.repository.battle.BattleRepositoryImpl
@@ -24,7 +23,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         val gameRepository = GameRepositoryImpl(applicationContext.gameDataStore)
         val battleRepository = BattleRepositoryImpl(applicationContext.gameDataStore)

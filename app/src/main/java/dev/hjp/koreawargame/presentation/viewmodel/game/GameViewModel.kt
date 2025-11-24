@@ -122,7 +122,7 @@ class GameViewModel(
     }
 
     private fun checkGameOver() {
-        if (_economy.value.approvalRate <= 0) {
+        if (_economy.value.approvalRate <= 30) {
             viewModelScope.launch {
                 _gameOverEvent.emit(true)
             }

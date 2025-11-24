@@ -1,6 +1,5 @@
-package dev.hjp.koreawargame.ui.theme
+package dev.hjp.koreawargame.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
