@@ -109,8 +109,6 @@ class BattleViewModel(
                 )
             }
         }
-
-        println(_countries.value[0].cities[0])
     }
 
     fun changeCurrentTarget() {
