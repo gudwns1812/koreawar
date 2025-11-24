@@ -1,4 +1,4 @@
-package dev.hjp.koreawargame.ui.theme
+package dev.hjp.koreawargame.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -23,3 +23,5 @@ val Apricot = Color(0xFFFBCEB1)
 val ForestGreen = Color(0xFF228B22)
 
 val OverlayDark = Color(0x80000000)
+
+val OverlayMediumGray = Color(0xCC999999)
