@@ -69,8 +69,7 @@ class GameViewModel(
             }
         }
     }
-
-
+    
     fun buyUnit(
         unitType: UnitType,
         times: Int = 1
@@ -80,29 +79,26 @@ class GameViewModel(
         }
 
         _gold.value = _gold.value.copy(
-            gold = _gold.value.gold - unitType.cost
+            gold = _gold.value.gold - unitType.cost * times
         )
 
         _army.value = _army.value.copy(
-            militaryPower = _army.value.militaryPower + unitType.attackPower,
-            fightPower = _army.value.fightPower + unitType.attackPower * 0.1
+            militaryPower = _army.value.militaryPower + unitType.attackPower * times
         )
 
         if (unitType == UnitType.NUCLEAR_MISSILE) {
             _economy.value = _economy.value.copy(
-                approvalRate = _economy.value.approvalRate - 2
+                approvalRate = _economy.value.approvalRate - 2 * times
             )
             checkGameOver()
         }
     }
 
     fun buyUnit10Times(unitType: UnitType) {
-        repeat(10) {
-            buyUnit(
-                unitType = unitType,
-                times = 10
-            )
-        }
+        buyUnit(
+            unitType = unitType,
+            times = 10
+        )
     }
 
     fun buyFacilities(facilities: Facilities) {

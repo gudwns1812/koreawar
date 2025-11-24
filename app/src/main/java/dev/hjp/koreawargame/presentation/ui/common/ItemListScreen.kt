@@ -90,6 +90,7 @@ fun <T : GameItem> GameItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable { onClick(gameItem) }
     ) {
         Row(
             modifier = Modifier
@@ -100,8 +101,7 @@ fun <T : GameItem> GameItemCard(
                 painter = painterResource(id = gameItem.imageRes),
                 contentDescription = gameItem.displayName,
                 modifier = Modifier
-                    .size(100.dp)
-                    .clickable { onClick(gameItem) },
+                    .size(100.dp),
                 contentScale = ContentScale.FillBounds
             )
             Column(modifier = Modifier.padding(start = 8.dp)) {

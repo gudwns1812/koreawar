@@ -24,9 +24,11 @@ data class ResearchState(
 
 @Serializable
 data class ArmyState(
-    val militaryPower: Long = 100L,
-    val fightPower: Double = militaryPower / 10.0
-)
+    val militaryPower: Long = 100L
+) {
+    val fightPower: Double
+        get() = militaryPower / 10.0
+}
 
 @Serializable
 data class ProvinceState(
