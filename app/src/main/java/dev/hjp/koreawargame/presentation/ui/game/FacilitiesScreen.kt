@@ -28,7 +28,7 @@ fun FacilitiesScreen(
     ) { facility ->
         ItemNameText(facility.displayName)
         ItemDescriptionText("예산 - ${facility.cost}")
-        ItemDescriptionText("인구 + ${facility.populationIncrease}%")
+        ItemDescriptionText("인구 + ${facility.populationIncrease}")
         ItemDescriptionText("경제력 + ${facility.economyPowerIncrease}")
         ItemDescriptionText("지지도 + ${facility.approvalRateIncrease}%")
 
