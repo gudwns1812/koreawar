@@ -24,6 +24,60 @@ data class CityPosition(
     val y: Float
 )
 
+@Composable
+fun ShowCities(
+    cityPositions: List<CityPosition>,
+    battleViewModel: BattleViewModel,
+    width: Dp,
+    height: Dp,
+    onBattleDetailClick: () -> Unit,
+    fixedTextColor: Color? = null
+) {
+    cityPositions.forEach { pos ->
+        val country = battleViewModel.findCountry(pos.countryName)
+        val city = country.cities.find { it.regionName == pos.regionName } ?: return@forEach
+        val currentTarget = battleViewModel.currentTarget.collectAsState().value
+
+        val isCurrent = city == currentTarget
+
+        if (pos.regionName == "서울") {
+            BattleStar(
+                text = "서울",
+                modifier = Modifier
+                    .size(80.dp)
+                    .offset(width.times(pos.x), height.times(pos.y))
+                    .safeClickable { if (isCurrent) onBattleDetailClick() },
+                starColor = if (isCurrent) Color.Red else OverlayDark
+            )
+            return
+        }
+
+        if (city.isClear) {
+            ClearBox(
+                modifier = Modifier
+                    .zIndex(1f)
+                    .offset(width.times(pos.x), height.times(pos.y)),
+            )
+        } else {
+            BattleBox(
+                modifier = Modifier
+                    .zIndex(1f)
+                    .offset(width.times(pos.x), height.times(pos.y))
+                    .background(if (isCurrent) country.color else OverlayDark),
+                city = city,
+                fixedTextColor = fixedTextColor,
+                onClick = {
+                    if (isCurrent) {
+                        battleViewModel.selectCountry(country)
+                        onBattleDetailClick()
+                    }
+                }
+            )
+        }
+
+    }
+}
+
 val southCityPositions = listOf(
     CityPosition("전라", "해남", 0.22f, 0.77f),
     CityPosition("전라", "여수", 0.37f, 0.67f),
@@ -96,6 +150,7 @@ val northCityPositions = listOf(
     CityPosition("함경", "청진", 0.74f, 0.43f),
 )
 
+
 val northKoreaCityPositions = listOf(
     CityPosition("북한", "해주", 0.12f, 0.32f),
     CityPosition("북한", "사리원", 0.3f, 0.22f),
@@ -107,58 +162,3 @@ val northKoreaCityPositions = listOf(
     CityPosition("북한", "인천", 0.6f, 0.55f),
     CityPosition("북한", "서울", 0.7f, 0.62f),
 )
-
-
-@Composable
-fun ShowCities(
-    cityPositions: List<CityPosition>,
-    battleViewModel: BattleViewModel,
-    width: Dp,
-    height: Dp,
-    onBattleDetailClick: () -> Unit,
-    fixedTextColor: Color? = null
-) {
-    cityPositions.forEach { pos ->
-        val country = battleViewModel.findCountry(pos.countryName)
-        val city = country.cities.find { it.regionName == pos.regionName } ?: return@forEach
-        val currentTarget = battleViewModel.currentTarget.collectAsState().value
-
-        val isCurrent = city == currentTarget
-
-        if (pos.regionName == "서울") {
-            BattleStar(
-                text = "서울",
-                modifier = Modifier
-                    .size(80.dp)
-                    .offset(width.times(pos.x), height.times(pos.y))
-                    .safeClickable { if (isCurrent) onBattleDetailClick() },
-                starColor = if (isCurrent) Color.Red else OverlayDark
-            )
-            return
-        }
-
-        if (city.isClear) {
-            ClearBox(
-                modifier = Modifier
-                    .zIndex(1f)
-                    .offset(width.times(pos.x), height.times(pos.y)),
-            )
-        } else {
-            BattleBox(
-                modifier = Modifier
-                    .zIndex(1f)
-                    .offset(width.times(pos.x), height.times(pos.y))
-                    .background(if (isCurrent) country.color else OverlayDark),
-                city = city,
-                fixedTextColor = fixedTextColor,
-                onClick = {
-                    if (isCurrent) {
-                        battleViewModel.selectCountry(country)
-                        onBattleDetailClick()
-                    }
-                }
-            )
-        }
-
-    }
-}
