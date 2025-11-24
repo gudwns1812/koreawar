@@ -75,7 +75,6 @@ class BattleViewModel(
     fun proceedTurn(
         userMilitary: Long,
     ) {
-        // HP 체크 후 이벤트 발송
         if (userMilitary <= 0) {
             viewModelScope.launch { _uiEvent.emit(UiEvent.Lose) }
         }
